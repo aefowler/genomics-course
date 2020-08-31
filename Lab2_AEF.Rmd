@@ -1,0 +1,51 @@
+---
+title: "Lab2_AEF"
+author: "Alison Fowler"
+date: "8/31/2020"
+output: html_document
+bibliography: references.bib
+---
+
+# Exercise 1 ## 
+
+```{r}
+x = 3
+y = 15 
+
+sum<-x+y
+sum
+
+diff<-y-x
+diff
+
+product<-y*x
+product
+
+quotient<-y/3
+quotient
+```
+
+# Exercise 2 
+``` {r}
+x = 2 
+y = 3 
+
+x^5 > y^4
+```
+
+# Exercise 3
+``` {r}
+vector <- c(22, 62, 148, 43, 129)
+sum <- sum(vector)
+vector/sum
+```
+
+# Exercise 4
+``` {r}
+nucleotides <- c("A", "T", "C", "G")
+sort(nucleotides)
+```
+
+Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
+
+# REFERENCES
