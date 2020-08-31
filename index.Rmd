@@ -3,6 +3,7 @@ title: "Index"
 author: "Alison Fowler"
 date: "8/31/2020"
 output: html_document
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -10,32 +11,49 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Lab 1: August 24, 2020 
-# updates
+
+# Exercise 1 ## 
 
 ```{r}
-"file:///Users/alisonfowler/Documents/UMass/UMass%20Courses/Evo%20Genomics%20&%20Bioinformatics/Lab%201/Lab1_AEF.html"
+x = 3
+y = 15 
+
+sum<-x+y
+sum
+
+diff<-y-x
+diff
+
+product<-y*x
+product
+
+quotient<-y/3
+quotient
 ```
 
-# References
+# Exercise 2 
+``` {r}
+x = 2 
+y = 3 
 
-```{r}
-"@Misc{Chang2015,
-  Title                    = {shiny: Web Application Framework for R. R package version 0.12.1},
-
-  Author                   = {Chang, W. and Cheng, J. and Allaire, JJ. and Xie, Y. and McPherson, J. },
-  Year                     = {2015},
-
-  Type                     = {Computer Program},
-  Url                      = {http://CRAN.R-project.org/package=shiny}
-}
-
-
-@Article{RCoreTeam,
-  Title                    = {R: A Language and Environment for Statistical Computing},
-  Author                   = {{R Core Team}},
-  Year                     = {2015},
-
-  Type                     = {Journal Article},
-  Url                      = {http://www.R-project.org}
-}"
+x^5 > y^4
 ```
+
+# Exercise 3
+``` {r}
+vector <- c(22, 62, 148, 43, 129)
+sum <- sum(vector)
+vector/sum
+```
+
+# Exercise 4
+``` {r}
+nucleotides <- c("A", "T", "C", "G")
+sort(nucleotides)
+```
+
+Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
+
+# REFERENCES
+
+
