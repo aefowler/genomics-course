@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course 
+Last updated: August 31, 2020
 
 # Lab 1: August 24, 2020 
 
