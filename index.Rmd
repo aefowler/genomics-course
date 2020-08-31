@@ -3,20 +3,23 @@ title: "Index"
 author: "Alison Fowler"
 date: "8/31/2020"
 output: html_document
-bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Exercises for "Evolutionary Genomics and Bioinformatics" course 
+
 # Lab 1: August 24, 2020 
 
-[Lab1_AEF](Lab1_AEF.html)
+[Lab 1](Lab1_AEF.html)
+
+# Lab 2: August 31, 2020 
+
+[Lab 2](Lab2_AEF.html)
 
 
-Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
 
-# REFERENCES
 
 
