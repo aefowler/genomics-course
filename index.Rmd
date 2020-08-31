@@ -12,45 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Lab 1: August 24, 2020 
 
-# Exercise 1 ## 
+[Lab1_AEF](Lab1_AEF.html)
 
-```{r}
-x = 3
-y = 15 
-
-sum<-x+y
-sum
-
-diff<-y-x
-diff
-
-product<-y*x
-product
-
-quotient<-y/3
-quotient
-```
-
-# Exercise 2 
-``` {r}
-x = 2 
-y = 3 
-
-x^5 > y^4
-```
-
-# Exercise 3
-``` {r}
-vector <- c(22, 62, 148, 43, 129)
-sum <- sum(vector)
-vector/sum
-```
-
-# Exercise 4
-``` {r}
-nucleotides <- c("A", "T", "C", "G")
-sort(nucleotides)
-```
 
 Application written in R [@RCoreTeam] using the Shiny framework [@Chang2015].
 
