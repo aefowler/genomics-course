@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Lab 1: August 24, 2020 
-# update 
+# updates
 
 ```{r}
 "file:///Users/alisonfowler/Documents/UMass/UMass%20Courses/Evo%20Genomics%20&%20Bioinformatics/Lab%201/Lab1_AEF.html"
