@@ -5,21 +5,25 @@ date: "8/31/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
+Last updated: September 8, 2020
 
-Exercises for "Evolutionary Genomics and Bioinformatics" course. 
-Last updated: August 31, 2020
+### Lab 1: August 24, 2020 
 
-# Lab 1: August 24, 2020 
+[Lab 1 Exercises](Lab1_AEF.html)
 
-[Lab 1](Lab1_AEF.html)
+### Lab 2: August 31, 2020 
 
-# Lab 2: August 31, 2020 
+[Lab 2 Exercises](Lab2_AEF.html)
 
-[Lab 2](Lab2_AEF.html)
+### Lab 3: September 7, 2020 <br>
+Intro to Python Exercises: <br>
 
+[Starting With Data](Lab3-Starting-With-Data.html)
+
+Indexing, Slicing and Subsetting DataFrames in Python 
+
+Data Types and Formats
 
 
 
