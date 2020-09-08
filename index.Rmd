@@ -19,7 +19,7 @@ Last updated: September 8, 2020
 ### Lab 3: September 7, 2020 <br>
 Intro to Python Exercises: <br>
 
-[Starting With Data](Lab3-Starting-With-Data.html)
+[Starting With Data](Lab3-Python-Starting-With-Data.html)
 
 Indexing, Slicing and Subsetting DataFrames in Python 
 
