@@ -21,7 +21,7 @@ Intro to Python Exercises: <br>
 
 [Starting With Data](Lab3-Python-Starting-With-Data.html)
 
-Indexing, Slicing and Subsetting DataFrames in Python 
+[Indexing, Slicing and Subsetting](Lab3-Indexing-etc.html)
 
 Data Types and Formats
 
