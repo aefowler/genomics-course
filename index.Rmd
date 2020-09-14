@@ -6,24 +6,37 @@ output: html_document
 ---
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: September 8, 2020
+Last updated: September 13, 2020
 
-### Lab 1: August 24, 2020 
+### Lab 1: Intro to R & Markdown
+
+August 24, 2020
+
+[Instructions](https://moodle.umass.edu/pluginfile.php/3374622/mod_resource/content/2/EvoGeno_Lab1.html)
 
 [Lab 1 Exercises](Lab1_AEF.html)
 
-### Lab 2: August 31, 2020 
+### Lab 2: Intro to Github & adding references to Markdown
+
+August 31, 2020
+
+[Instructions](https://moodle.umass.edu/pluginfile.php/3402381/mod_resource/content/4/EvoGeno_Lab2_GitHub.html) 
 
 [Lab 2 Exercises](Lab2_AEF.html)
 
-### Lab 3: September 7, 2020 <br>
-Intro to Python Exercises: <br>
+### Lab 3: Intro to Python 
+
+September 7, 2020 
+
+[Data Carpentry Instructions](https://datacarpentry.org/python-ecology-lesson/) 
+
+Exercises: 
 
 [Starting With Data](Lab3-Python-Starting-With-Data.html)
 
 [Indexing, Slicing and Subsetting](Lab3-Indexing-etc.html)
 
-Data Types and Formats
+[Data Types and Formats](Lab3-Data-Types.html) 
 
 
 
