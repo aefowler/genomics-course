@@ -45,6 +45,16 @@ Exercises:
 
 ### Lab 4: Intro to Python, Continued
 
-Exercises:
+September 14, 2020
 
+Exercises (still in progress):
 
+[Combining DataFrames with Pandas](DataFrames-with-pandas.html)
+
+[Data Workflows and Automation]()
+
+[Making Plots with plotnine]()
+
+[Data Ingest and Visualization]()
+
+[Accessing SQLite Databases]()
