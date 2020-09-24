@@ -6,7 +6,7 @@ output: html_document
 ---
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: September 16, 2020
+Last updated: September 24, 2020
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
@@ -33,8 +33,6 @@ September 7, 2020
 
 [Data Carpentry Instructions](https://datacarpentry.org/python-ecology-lesson/) 
 
-[Lab 3 Instructions: Data Wrangling](https://moodle.umass.edu/pluginfile.php/3417996/mod_resource/content/2/Evo_Geno_Lab3_Data_Wrangling.html)
-
 Exercises: 
 
 [Starting With Data](Lab3-Python-Starting-With-Data.html)
@@ -51,10 +49,20 @@ Exercises (still in progress):
 
 [Combining DataFrames with Pandas](DataFrames-with-pandas.html)
 
-[Data Workflows and Automation]()
+[Data Workflows and Automation](data-workflows.html)
 
 [Making Plots with plotnine]()
 
 [Data Ingest and Visualization]()
 
 [Accessing SQLite Databases]()
+
+### Tutorials and Exercises in R
+
+[Data Wrangling in R](https://moodle.umass.edu/pluginfile.php/3417996/mod_resource/content/2/Evo_Geno_Lab3_Data_Wrangling.html) 
+
+[Working with COVID data in R - Part 1](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab4_covid.html)
+
+[Working with COVID data in R - Part 2](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5_covid.html)
+
+[Interactive Graphs and Animations](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5x_interactive_graphs.html)
