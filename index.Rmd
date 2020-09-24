@@ -17,7 +17,7 @@ Lab 1: [Intro to R & Markdown](https://moodle.umass.edu/pluginfile.php/3374622/m
 
 Lab 2: [Intro to Github & adding references to Markdown](https://moodle.umass.edu/pluginfile.php/3402381/mod_resource/content/4/EvoGeno_Lab2_GitHub.html) || [Exercises](Lab2_AEF.html)
 
-Lab 3: [Data Wrangling in R](https://moodle.umass.edu/pluginfile.php/3417996/mod_resource/content/2/Evo_Geno_Lab3_Data_Wrangling.html) || [Exercises](Lab3A_AEF.html)
+Lab 3: [Data Wrangling in R](https://moodle.umass.edu/pluginfile.php/3417996/mod_resource/content/2/Evo_Geno_Lab3_Data_Wrangling.html) || [Exercises A](Lab3A_AEF.html), [Exercises B](Lab3B_AEF.html)
 
 Lab 4: [Working with COVID data in R - Part 1](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab4_covid.html)
 
