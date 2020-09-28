@@ -1,0 +1,258 @@
+---
+title: "Lab 5 - COVID data Part 2"
+author: "Alison Fowler"
+date: "9/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# Read in data 
+# March 13
+Confirmed_State_3_13 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-13-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State") %>% 
+  filter (Country_Region == "US") %>% 
+  group_by(Province_State, Country_Region) %>% 
+  summarise(Confirmed = sum(Confirmed)) 
+
+str(Confirmed_State_3_13)
+```
+
+```{r}
+# Sept 13
+Confirmed_State_9_13 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-13-2020.csv")) %>% 
+  filter (Country_Region == "US") %>% 
+  group_by(Province_State, Country_Region) %>% 
+  summarise(Confirmed = sum(Confirmed)) 
+
+str(Confirmed_State_9_13)
+```
+
+```{r}
+# Notice from the above `str’ calls that there are 53 states in the table on 3/13/2020 and 
+# 58 states in the table on 9/13/2020... Let's see what the differences are 
+
+setdiff(Confirmed_State_9_13$Province_State, Confirmed_State_3_13$Province_State)
+```
+
+```{r}
+# There are 4 US territories and a field you may have notice last week: “Recovered”. 
+# We don’t need the “Recovered” row so let’s filter it from the data set
+
+Confirmed_State_9_13 <- Confirmed_State_9_13 %>% 
+  filter(Province_State != "Recovered") 
+```
+
+```{r}
+# Since all of the states and territories in 9/13/2020 are found in 3/13/2020 a left_join or full_join can 
+# be used to merge the tables
+
+Confirmed_State_3_13_9_13_joined <- full_join(Confirmed_State_3_13,
+                                              Confirmed_State_9_13, by = c("Province_State"))
+```
+
+```{r}
+# look at the new joined dataframe 
+head(Confirmed_State_3_13_9_13_joined)
+tail(Confirmed_State_3_13_9_13_joined, 5)
+```
+
+```{r}
+# look to see what cells are NA  
+which(is.na(Confirmed_State_3_13_9_13_joined))
+```
+
+```{r}
+# let's turn the NAs to 0 and rename the columns 
+Confirmed_State_3_13_9_13_joined <- full_join(Confirmed_State_3_13,
+                                              Confirmed_State_9_13, by = c("Province_State")) %>% 
+  rename(Confirmed_3_13_2020 = "Confirmed.x", Confirmed_9_13_2020 = "Confirmed.y") %>% 
+  select(-Country_Region.x, -Country_Region.y) %>% 
+  replace_na(list(Confirmed_3_13_2020 = 0))
+
+head(Confirmed_State_3_13_9_13_joined)
+```
+
+```{r}
+# Switching between wide and long table formats
+Confirmed_State_3_13_9_13_joined_long <- Confirmed_State_3_13_9_13_joined %>% 
+  pivot_longer(-c(Province_State),
+               names_to = "Date", values_to = "Confirmed")
+```
+
+```{r}
+# to adjust figure size {r, fig.width = 5, fig.height = 10}
+ggplot(Confirmed_State_3_13_9_13_joined_long, aes(x = Confirmed,  y = Province_State))  + 
+  geom_point(aes(color = Date)) 
+```
+
+```{r}
+# Working with the time series data 
+# load the most recent time series data for confirmed cases 
+
+time_series_confirmed <- read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")) %>%
+  rename(Province_State = "Province/State", Country_Region = "Country/Region")
+
+download.file(url="https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", 
+              destfile = "time_series_covid19_confirmed_global.csv")
+
+time_series_confirmed <- read_csv("time_series_covid19_confirmed_global.csv")%>%
+  rename(Province_State = "Province/State", Country_Region = "Country/Region")
+
+head(time_series_confirmed)
+```
+
+```{r}
+time_series_confirmed_long <- time_series_confirmed %>% 
+  pivot_longer(-c(Province_State, Country_Region, Lat, Long),
+               names_to = "Date", values_to = "Confirmed") 
+
+head(time_series_confirmed_long)
+```
+
+```{r}
+download.file(url="https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv", 
+              destfile = "time_series_covid19_deaths_global.csv")
+
+time_series_deaths <- read_csv("time_series_covid19_deaths_global.csv")%>%
+  rename(Province_State = "Province/State", Country_Region = "Country/Region")
+
+time_series_deaths_long <- time_series_deaths %>% 
+  pivot_longer(-c(Province_State, Country_Region, Lat, Long),
+               names_to = "Date", values_to = "Deaths") 
+
+head(time_series_deaths_long)
+```
+
+```{r}
+# Joining the time series tables 
+
+time_series_confirmed_long <- time_series_confirmed_long %>% 
+  unite(Key, Province_State, Country_Region, Date, sep = ".", remove = FALSE)
+
+head(time_series_confirmed_long)
+```
+
+```{r}
+time_series_deaths_long <- time_series_deaths_long %>% 
+  unite(Key, Province_State, Country_Region, Date, sep = ".") %>% 
+  select(Key, Deaths)
+
+head(time_series_deaths_long)
+```
+
+```{r}
+# now join the tables 
+time_series_long_joined <- full_join(time_series_confirmed_long,
+                                     time_series_deaths_long, by = c("Key")) %>% 
+  select(-Key)
+
+head(time_series_long_joined)
+```
+
+```{r}
+which(is.na(time_series_long_joined$Confirmed))
+```
+
+```{r}
+which(is.na(time_series_long_joined$Deaths))
+```
+
+# no NAs - great 
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+time_series_long_joined$Date <- mdy(time_series_long_joined$Date)
+
+# create a column using pivot_long 
+
+time_series_long_joined_counts <- time_series_long_joined %>% 
+  pivot_longer(-c(Province_State, Country_Region, Lat, Long, Date),
+               names_to = "Report_Type", values_to = "Counts")
+```
+
+```{r}
+time_series_long_joined_counts <- time_series_long_joined %>% 
+  pivot_longer(-c(Province_State, Country_Region, Lat, Long, Date),
+               names_to = "Report_Type", values_to = "Counts")
+
+head(time_series_long_joined_counts)
+```
+
+```{r}
+# Making graphs from the time series data 
+
+time_series_long_joined %>% 
+  group_by(Country_Region,Date) %>% 
+  summarise_at(c("Confirmed", "Deaths"), sum) %>% 
+  filter (Country_Region == "US") %>% 
+  ggplot(aes(x = Date,  y = Deaths)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle("US COVID-19 Deaths")
+```
+
+```{r}
+# some other countries 
+time_series_long_joined %>% 
+  group_by(Country_Region,Date) %>% 
+  summarise_at(c("Confirmed", "Deaths"), sum) %>% 
+  filter (Country_Region %in% c("China","Japan", "Korea, South",
+                                "Italy","Spain", "US")) %>% 
+  ggplot(aes(x = Date,  y = Deaths)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle("COVID-19 Deaths") +
+  facet_wrap(~Country_Region, ncol=2, scales="free_y")
+```
+
+```{r}
+# several countries on the same graph
+
+time_series_long_joined %>% 
+  group_by(Country_Region,Date) %>% 
+  summarise_at(c("Confirmed", "Deaths"), sum) %>% 
+  filter (Country_Region %in% c("China","France","Italy", 
+                                "Korea, South", "US")) %>% 
+  ggplot(aes(x = Date,  y = Deaths, color = Country_Region)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle("COVID-19 Deaths")
+```
+
+```{r}
+# cases and deaths on the same graph 
+
+time_series_long_joined_counts %>% 
+  group_by(Country_Region, Report_Type, Date) %>% 
+  summarise(Counts = sum(Counts)) %>% 
+  filter (Country_Region == "US") %>% 
+  ggplot(aes(x = Date,  y = log2(Counts), fill = Report_Type, color = Report_Type)) + 
+  geom_point() +
+  geom_line() +
+  ggtitle("US COVID-19 Cases")
+```
+
+```{r}
+
+```
+
+
