@@ -256,21 +256,21 @@ time_series_long_joined_counts %>%
 
 2. Revise the above example for joining tables using 6/13/2020 and 9/13/2020. Plot the data as a bar plot. Make sure your graph looks nice in the report by adjusting the height in the R code chunk header.
 
-Add more informative x and y labels and a title to the above graph in Ex2.
+3. Add more informative x and y labels and a title to the above graph in Ex2.
 
-Using the time series data. Make a plot of the total number of confirmed deaths per day worldwide
+4. Using the time series data. Make a plot of the total number of confirmed deaths per day worldwide
 
-Use Mutate to make a new column with deaths/confirmed cases (Hint: this might be best done after joining the tables, but before pivoting longer).
+5. Use Mutate to make a new column with deaths/confirmed cases (Hint: this might be best done after joining the tables, but before pivoting longer).
 
-Plot US deaths/confirmed cases per day.
+6. Plot US deaths/confirmed cases per day.
 
-Make a single graph with from the times series data with the 10 countries with the hightest death total.
+7. Make a single graph with from the times series data with the 10 countries with the hightest death total.
 
-Using Facet_Wraps make a graph from the times series data with the 10 countries with the hightest death total. Format the table to look nice in the report by changing the number of rows in your graph and/or adjusting the height in the R code chunk header.
+8. Using Facet_Wraps make a graph from the times series data with the 10 countries with the hightest death total. Format the table to look nice in the report by changing the number of rows in your graph and/or adjusting the height in the R code chunk header.
 
-Using Facet_Wraps make a graph from the times series data for confirmed cases for all US states and territories. Format the table to look nice in the report by changing the number of rows in your graph and/or adjusting the height in the R code chunk header.
+9. Using Facet_Wraps make a graph from the times series data for confirmed cases for all US states and territories. Format the table to look nice in the report by changing the number of rows in your graph and/or adjusting the height in the R code chunk header.
 
-Apply a theme other than the one used in the Data Carpentries tutorial to the graph in Ex8.
+10. Apply a theme other than the one used in the Data Carpentries tutorial to the graph in Ex8.
 
 
 
