@@ -1,0 +1,151 @@
+---
+title: 'Lab 4: Working with COVID data - Part 1'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+# Read in the data from JHU github
+report_03_11_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-13-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+
+str(report_03_11_2020)
+```
+
+Interactive data tables: 
+
+```{r}
+library(DT)
+datatable(report_03_11_2020)
+```
+
+### Exercises Part 1 
+1. The format of the daily reports has changed over time. What are the differences between 3/12/2020, the Friday before spring break 2020 and yesterday 6 months later on 9/12/2020? Load the files into R and use str() and View() (or in the top right corner click on Environment and then the data frame.). Note the in the more recent dates they have changed the column headers so that it is no longer necessary to rename Province_State and Country_Region.
+
+```{r}
+report_03_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-12-2020.csv")) %>%
+  rename(Country_Region = "Country/Region", Province_State = "Province/State")
+
+report_09_12_2020 <-   read_csv(url("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/09-12-2020.csv"))
+
+str(report_03_12_2020)
+str(report_09_12_2020)
+```
+
+2. Many countries have multiple entries representing different regions (e.g. counties and states). To get the counts for a country we need to summarise the data. Use group_by() and summarize() to make a data frame (tibble) with total counts for each country.
+
+```{r}
+country_confirmed_cases <- report_09_12_2020 %>% 
+  group_by(Country_Region) %>%
+  summarize(total_confirmed = sum(Confirmed))
+
+head(country_confirmed_cases)
+```
+
+3. To get counts for confirmed cases per U.S state use filter() to select US and group_by and summarize as above.
+
+```{r}
+states_cases <- report_09_12_2020 %>% 
+  filter(Country_Region == "US") %>% 
+  group_by(Province_State) %>% 
+  summarize(total_confirmed = sum(Confirmed))
+
+head(states_cases)
+```
+
+4. It will be difficult to make simple graphs with the data from all countries in the world or even the US states. Use arrange_by() and slice() to get just the top 10 countries for Deaths.
+
+```{r}
+sept_top10_countries_deaths <- report_09_12_2020 %>% 
+  group_by(Country_Region) %>% 
+  summarize(total_deaths = sum(Deaths)) %>% 
+  arrange(desc(total_deaths)) %>% 
+  slice_head(n=10) 
+
+# could also do slice(n=1:10)
+
+datatable(sept_top10_countries_deaths)
+```
+
+### Exercises Part 2 
+
+5. Make plots using geom_point() of the 10 countries with the confirmed cases and deaths (two separate graphs) on 3/12/2020 and 9/12/2020. 
+
+```{r}
+# Make cases dataframe for September
+sept_top10_countries_cases <- report_09_12_2020 %>% 
+  group_by(Country_Region) %>% 
+  summarize(total_cases = sum(Confirmed)) %>% 
+  arrange(desc(total_cases)) %>% 
+  slice_head(n=10)
+
+# Make the March dataframe for number of cases 
+march_top10_countries_cases <- report_03_12_2020 %>% 
+  group_by(Country_Region) %>% 
+  summarize(total_cases = sum(Confirmed)) %>% 
+  arrange(desc(total_cases)) %>% 
+  slice_head(n=10)
+
+# plot for cases
+cases<-ggplot(data = sept_top10_countries_cases,
+mapping = aes(x = total_cases, y = Country_Region)) + 
+  geom_point(color = "red")+
+  geom_point(data = march_top10_countries_cases, 
+             color = "blue") + 
+  ggtitle("Countries with Most COVID-19 Cases in March and Sept 2020") + 
+  ylab("Country") +
+  xlab("Cumulative Cases as of March 12 (blue) and September 12 (red)")
+
+# not sure how to add a legend when the two dates are not in the same dataframe 
+
+# Repeat for number of deaths 
+
+march_top10_countries_deaths <- report_03_12_2020 %>% 
+  group_by(Country_Region) %>% 
+  summarize(total_deaths = sum(Deaths)) %>% 
+  arrange(desc(total_deaths)) %>% 
+  slice_head(n=10)
+
+# plot for deaths
+deaths <- ggplot(data = sept_top10_countries_deaths,
+       mapping = aes(x = total_deaths, y = Country_Region)) + 
+  geom_point(color = "orange")+
+  geom_point(data = march_top10_countries_deaths, 
+             color = "forestgreen") + 
+  ggtitle("Countries with Most COVID-19-related Deaths in March and Sept 2020") + 
+  ylab("Country") +
+  xlab("Cumulative Deaths as of March 12 (green) and September 12 (orange)")
+
+library('gridExtra')
+grid.arrange(cases, deaths, nrow = 2)
+```
+
+6. Make using geom_bar of the 10 states with the most confirmed cases and deaths (two separate graphs) on 3/12/2020 and 9/12/2020.
+
+```{r}
+# cases 
+bar_cases <- ggplot(data = sept_top10_countries_cases,
+mapping = aes(x = total_cases,  y = Country_Region)) + 
+  geom_bar(stat = 'identity', color = "red") + 
+  geom_bar(data = march_top10_countries_cases, stat = 'identity', color = "blue") + 
+  ggtitle("Countries with Most COVID-19 Cases in March and Sept 2020") + 
+  ylab("Country") +
+  xlab("Cumulative Cases as of March 12 (blue) and September 12 (red)")
+
+# deaths 
+bar_deaths <- ggplot(data = sept_top10_countries_deaths,
+       mapping = aes(x = total_deaths,  y = Country_Region)) + 
+  geom_bar(stat = 'identity', color = "orange") + 
+  geom_bar(data = march_top10_countries_deaths, stat = 'identity', color = "forestgreen") + 
+  ggtitle("Countries with Most COVID-19-related Deaths in March and Sept 2020") + 
+  ylab("Country") +
+  xlab("Cumulative Deaths as of March 12 (green) and September 12 (orange)")
+
+grid.arrange(bar_cases, bar_deaths, nrow = 2 )
+```
+
