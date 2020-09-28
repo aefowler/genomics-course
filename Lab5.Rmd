@@ -165,18 +165,10 @@ which(is.na(time_series_long_joined$Confirmed))
 which(is.na(time_series_long_joined$Deaths))
 ```
 
-# no NAs - great 
+no NAs - great 
 
 ```{r}
 library(lubridate)
-```
-
-```{r}
-
-```
-
-```{r}
-
 ```
 
 ```{r}
@@ -251,7 +243,7 @@ time_series_long_joined_counts %>%
   ggtitle("US COVID-19 Cases")
 ```
 
-### Exercises 
+### Exercises - in progress
 1. Finish the visualization tutorial (Lab 5A)
 
 2. Revise the above example for joining tables using 6/13/2020 and 9/13/2020. Plot the data as a bar plot. Make sure your graph looks nice in the report by adjusting the height in the R code chunk header.

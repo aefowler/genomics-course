@@ -21,7 +21,7 @@ Lab 3: [Data Wrangling in R](https://moodle.umass.edu/pluginfile.php/3417996/mod
 
 Lab 4: [Working with COVID data in R - Part 1](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab4_covid.html) || [Exercises](Lab4.html), [Visualization tutorial (4A)](Lab-4A.html)
 
-Lab 5: [Working with COVID data in R - Part 2](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5_covid.html) || [Exercises](Lab5.html), [Visualization tutorial (5A)](Lab5A.html)
+Lab 5: [Working with COVID data in R - Part 2](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5_covid.html) || [Exercises](Lab5.html), Visualization tutorial (5A)
 
 Lab 5 extra: [Interactive Graphs and Animations](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5x_interactive_graphs.html)
 
