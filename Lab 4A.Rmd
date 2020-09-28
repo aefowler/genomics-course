@@ -1,0 +1,92 @@
+---
+title: "Lab 4A : Data Carpentry ggplot tutorial"
+date: "9/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+surveys_complete <- read_csv("generated_data/surveys_complete.csv")
+```
+
+```{r}
+# template: ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
+
+# bind the plot to specific data 
+ggplot(data = surveys_complete)
+
+# select the variables from the data you want to plot 
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length))
+
+# add "geoms" (points, lines, bars, etc.); we'll use geom_point for continuous vars
+ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+  geom_point()
+```
+
+```{r}
+# Assign plot to a variable
+surveys_plot <- ggplot(data = surveys_complete, 
+                       mapping = aes(x = weight, y = hindfoot_length))
+
+# Draw the plot
+surveys_plot + 
+  geom_point()
+
+# This is the correct syntax for adding layers
+# surveys_plot +
+#  geom_point()
+
+# This will not add the new layer and will return an error message
+# surveys_plot
+# + geom_point()
+```
+
+```{r}
+library("hexbin")
+
+surveys_plot +
+  geom_hex()
+```
+
+```{r}
+# going back and modifying geom_point... 
+# add transparency 
+
+ggplot(data = surveys_complete, aes(x = weight, y = hindfoot_length)) +
+  geom_point(alpha = 0.1) 
+```
+
+```{r}
+# add colors 
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(alpha = 0.1, color = "blue")
+```
+
+```{r}
+# color for each species 
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(alpha = 0.1, aes(color = species_id))
+```
+
+Challenge: 
+Create a scatter plot of weight over species_id with the plot types showing in different colors. 
+Is this a good way to show this type of data?
+
+```{r}
+ggplot(data = surveys_complete, 
+       mapping = aes(x = species_id, y = weight)) +
+  geom_point(aes(color = plot_type))
+```
+
+No, not good. Might be better if we switched plot_type to be on the x?
+
+```{r}
+ggplot(data = surveys_complete, 
+       mapping = aes(x = plot_type, y = weight)) +
+  geom_point(aes(color = species_id), alpha = 0.1)
+```
+
