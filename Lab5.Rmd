@@ -428,6 +428,7 @@ time_series_deaths_long %>%
 9. Using Facet_Wraps make a graph from the times series data for confirmed cases for all US states and territories. Format the table to look nice in the report by changing the number of rows in your graph and/or adjusting the height in the R code chunk header.
 
 NEED TO FIND THIS DATA 
+
 Currently, the only time series data I have downloaded has all of US together (no states). The states data I have is cumulative total cases/deaths, not time series. 
 
 
