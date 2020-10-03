@@ -6,7 +6,7 @@ output: html_document
 ---
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: October 1, 2020
+Last updated: October 2, 2020
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
