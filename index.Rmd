@@ -6,7 +6,7 @@ output: html_document
 ---
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: October 12, 2020 
+Last updated: October 15, 2020 
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
@@ -29,7 +29,7 @@ Lab 6: [Data Maps and Interactive Graphs from the COVID-19 reporting data](https
 
 Lab 6 extra: [Shiny Apps](https://moodle.umass.edu/pluginfile.php/3460973/mod_resource/content/6/EvoGenoLab6x_Shiny.html) 
 
-Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expression](https://moodle.umass.edu/pluginfile.php/3477519/mod_resource/content/1/EvoGeno_Lab7_rnaseq.html) || [Exercises](Lab-7.html)
+Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expression](https://moodle.umass.edu/pluginfile.php/3477519/mod_resource/content/1/EvoGeno_Lab7_rnaseq.html) || [Exercises](Lab_7.html)
 
 ### Python Tutorials and Exercises  
 
