@@ -3,9 +3,12 @@ title: "Lab 6"
 author: "Alison Fowler"
 date: "9/28/2020"
 output: html_document
+bibliography: references.bib
 ---
 
 # COVID cases as of September 26, 2020
+
+These figures were produced using publicly available data from Johns Hopkins University @JHU.
 
 ```{r, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
 library(RColorBrewer)
@@ -171,3 +174,5 @@ ggplotly(
     theme(axis.text = element_blank())
 )
 ```
+
+References: 
