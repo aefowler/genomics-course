@@ -25,7 +25,7 @@ Lab 5: [Working with COVID data in R - Part 2](https://jeffreyblanchard.github.i
 
 Lab 5 extra: [Interactive Graphs and Animations](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5x_interactive_graphs.html) | [Exercises](Lab5-Extra.html)
 
-Lab 6: [Data Maps and Interactive Graphs from the COVID-19 reporting data](https://moodle.umass.edu/pluginfile.php/3456359/mod_resource/content/2/EvoGeno_Lab6_maps.html) || Examples, Exercises
+Lab 6: [Data Maps and Interactive Graphs from the COVID-19 reporting data](https://moodle.umass.edu/pluginfile.php/3456359/mod_resource/content/2/EvoGeno_Lab6_maps.html) || [Exercises](Lab6.html)
 
 Lab 6 extra: [Shiny Apps](https://moodle.umass.edu/pluginfile.php/3460973/mod_resource/content/6/EvoGenoLab6x_Shiny.html) 
 
