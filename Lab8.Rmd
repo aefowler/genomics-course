@@ -1,0 +1,136 @@
+---
+title: "Lab 8"
+author: "Alison Fowler"
+date: "10/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(ggtree)
+```
+
+```{r, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+tree <- read.tree("tree_newick.nwk")
+```
+
+```{r}
+# build a ggplot with a geom_tree
+ggplot(tree) + geom_tree() + theme_tree()
+
+# This is convenient shorthand
+#ggtree(tree)
+```
+
+```{r}
+# add a scale
+ggtree(tree) + geom_treescale()
+```
+
+```{r}
+# or add the entire scale to the x axis with theme_tree2()
+ggtree(tree) + theme_tree2()
+```
+
+
+The units of branch length are usually nucleotide substitutions per site – that is, the number of changes or substitutions divided by the length of the sequence
+```{r}
+# disable scaling, produce a cladogram 
+ggtree(tree, branch.length="none")
+```
+
+```{r}
+# change aesthetics 
+ggtree(tree, branch.length="none", color="blue", size=2, linetype=3)
+```
+
+Exercise 1 
+
+```{r} 
+# 1. Create a slanted phylogenetic tree
+ggtree(tree, layout = 'slanted')
+``` 
+
+```{r}
+# 2. Create a circular tree 
+ggtree(tree, layout = 'circular')
+```
+
+```{r}
+# 3. Create a circular unscaled cladogram with thick red lines
+ggtree(tree, layout = 'circular', branch.length = 'none', color = 'red', size = 3)
+```
+ 
+```{r}
+# Add additional layers
+
+# create the basic plot
+p <- ggtree(tree)
+```
+
+```{r}
+# add node points
+p + geom_nodepoint()
+```
+
+```{r}
+# add tip points
+p + geom_tippoint()
+```
+
+```{r}
+# Label the tips
+p + geom_tiplab()
+```
+
+```{r}
+
+```
+
+Exercise 2 
+Create a tree with these characteristics: 
+tips labeled in purple
+purple-colored diamond-shape tip points (hint: Google search “R point characters”)
+large semitransparent yellow node points (hint: alpha=)
+Add a title with + ggtitle(...)
+```{r}
+ggtree(tree) + 
+  geom_nodepoint(size = 3, color = "goldenrod", alpha = 0.5) + 
+  geom_tippoint(size = 3, color = "purple", pch = 18) + 
+  geom_tiplab(size = 5, color = "purple") + 
+  ggtitle("Exercise 2 Tree")
+```
+
+```{r}
+# Display internal node numbers 
+ggtree(tree) + geom_text(aes(label=node), hjust=-.3)
+```
+
+```{r}
+# Or use MRCA()
+# recreate plot
+ggtree(tree) + geom_tiplab()
+```
+
+```{r}
+# lets get the MRCA for taxa C and E and taxa G and H 
+MRCA(tree, ("C"), ("E"))
+MRCA(tree, ("G"), ("H"))
+```
+
+
+### My tree downloaded from CIPRES
+```{r, echo = FALSE, error = FALSE, warning = FALSE, message = FALSE}
+my_tree <- read.tree("fastree_result.tre")
+```
+
+```{r}
+ggtree(my_tree, layout = 'circular', color = 'blue') + 
+  geom_tippoint(size = 2, color = "blue", pch = 18) + 
+  geom_tiplab(size = 2, color = "blue") + 
+  ggtitle("My CIPRES Tree")
+```
