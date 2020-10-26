@@ -33,6 +33,8 @@ Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expre
 
 Lab 8: [Sequence Alignment, Phylogenetic Analysis and Tree Visualization](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab8_phylogenetic.html#ngphylogeny.fr---a-quick-and-easy-working-flow-including-multiple-sequence-alignment-phylogenetic-analysis-and-tree-visualization) || [Exercises](Lab8.html)
 
+Lab 9A: [Programming in R - Regular Expressions](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab9_stringr.html#class-exercises) || [Exercises](Lab9A.html)
+
 ### Python Tutorials and Exercises  
 
 [Data Carpentry Instructions](https://datacarpentry.org/python-ecology-lesson/) 
