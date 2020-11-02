@@ -1,0 +1,91 @@
+---
+title: 'Lab 10: Population genomics based on high throughput sequencing (HTS)'
+author: "Alison Fowler"
+date: "11/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### In progress 
+
+```{r}
+library(vcfR)
+library(adegenet)
+library(poppr)
+```
+
+
+### PART I: Reading VCF data
+
+
+### PART II: Analysis of Genome Data 
+
+#### Introduction 
+Analysis of genome data for populations can be seen as similar to the analyses of other marker systems discussed in previous chapters of this book, except that genome data analyses include larger quantities of data. For example, VCF data (discussed in ‘reading VCF data’) can be read into R using vcfR (Knaus and Grünwald 2017) to create a vcfR object. This object can be converted into a genlight object (Jombart 2008) and then a snpclone object (Kamvar, Tabima, and Grünwald 2014, @kamvar2015novel) if deemed necessary. Analysis on these objects has been covered in previous sections. Genome scale data provides additional analytical options as well. For example, when assumptions about the neutrality of the majority of the genome are appropriate, this can be used as a null hypothesis and used to help identify markers that differentiate from this assumption. Here we’ll provide examples of how genomic data may be analyzed.
+
+For genomics examples we’ll use the pinfsc50 dataset. The pinfsc50 dataset is from a number of published P. infestans genomics projects where the data has been subset here to supercontig_1.50. This dataset is available as a stand alone R package (Knaus and Grünwald 2017) or be download from the course repo By subsetting the data to one supercontig it creates a dataset of a size that can be conveniently used for examples. This dataset illustrates some important strengths and weaknesses of these studies. A strength is the amount of data we have for each individual. Among the weaknesses are that the samples are ‘opportunistic’ in that we have no control over the design of the experiment. Also, because of the large investment in data per sample, there is a relatively small number of samples.
+
+#### Opening and examining the dataset 
+
+#### Converting VCF data to a genlight object
+
+"Different R packages have created different data structures to hold your data when it is imported into R. This is analagous to the different file formats you may have used to analyze your data in software outside of R. We’ve tried to engineer a suite of functions to convert data structures among the various R packages we typically use. The R package adegenet is a popular R package used for population genetic analysis and it works on data structures called ‘genlight’ objects. Here we use the function vcfR2genlight() to convert our vcfR object to a genlight object. This makes our VCF data available to the analyses in adegenet."
+
+"A genlight object only supports biallelic, or binary, variants. That is, variants with no more than two alleles. However, variant call format data can include multiple alleles. When we created our genlight object we recieved a warning message indicating that our vcfR object had variants with more than two alleles and that it was being subset to only biallelic variants. This is one of several important differences in how data is handled in VCF data versus genlight objects."
+
+"Another important difference among VCF and genlight data is how the genotypes are stored. In VCF data the alleles are delimited by either a pipe or a forward slash (‘|’, ‘/’ respectively). Because genlight objects only use biallelic loci the genotypes can be recoded as 0, 1 and 2. These correspond to homozygous for the reference or zero allele, heterozygote or homozygous for the first alternate allele. We can validate this by checking a few select genotypes from both the vcfR object and the genlight object."
+
+"Note that in VCF data the samples are in columns and the variants are in rows. In genlight objects, and many other R objects, the samples are in rows while the variants are in columns. We can use the transpose function (t()) to convert between these two states.
+
+Yet another difference among VCF data and genlight objects is that in VCF data there is no concept of ‘population.’ The package adegenet was designed specifically for the analysis of population data, so its genlight object has a place (a ‘slot’) to hold this information. Because there is no population data in VCF data, if we want population data we’ll have to set it ourselves."
+
+"Our population designation consists of a vector, that is the same length as the number of samples we have, where each element indicates which population each sample belongs to. By using the as.factor() function we transform the “vector” into a “factor”. A factor understands that all of the elements that are named “us” or “eu” are all part of the same group. This is why when we ask for the popNames we get a vector where each population is represented only once."
+
+"Yet another difference among VCF data and genlight objects is the concept of ploidy. In VCF data each variant is treated independently. This means that in theory VCF data may contain data that is of mixed ploidy. In a genlight object different samples may be of different ploidy levels, but within each sample all of its loci must be of the same ploidy level. Here we’ll set the ploidy of all the samples in the genlight object to the same ploidy."
+
+#### Distance Matrices
+
+Let’s create a pairwise genetic distance matrix for individuals or populations (i.e., groups of individuals).
+
+To summarize, we can create a distance matrix from a genlight object using dist():
+
+x.dist <- dist(x)
+Note, that we have not specified what the variable x is. We can find documentation for this function with ?dist.
+
+There are also functions to create distance matrices from genlight objects that exist in other packages. The function bitwise.dist() in the package poppr is an example. We can find documentation for this function with ?poppr::bitwise.dist. Again, you need to know where to look for this information or you may not find it. We can use this function as follows.
+
+x.dist <- poppr::bitwise.dist(x)
+Note, that the variable x has not yet been specified. Lastly, because you can use as.matrix() on your genlight object, and most distance algorithms can use this matrix as input, you can use this as an intermediate step to create a matrix from your genlight object and pass it to your distance algorithm of choice. Options include ade4, vegdist() in vegan, or daisy() in cluster. Note that it is up to you to determine which distance metric is best for your particular analysis. A number of options therefore exist for creating distance matrices from genlight objects.
+
+#### chromR objects 
+
+##### Using chromR to locate unusual features in a genome 
+"Genomic projects frequently incorporate several types of data. For example, the reference sequence may be stored as a FASTA format file, variants (SNPs, indels, etc.) may be stored in a variant call format (VCF) file while annotations may be stored as a GFF or BED format (tablular data). Genome browsers can be used to integrate these different data types. However, genome browsers typically lack a manipulation environment, they simply display existing files. The R environment includes a tremendous amount of statistical support that is both specific to genetics and genomics as well as more general tools (e.g., the linear model and its extensions). The R package vcfR provides a link between VCF data and the R environment and it includes a simple genome browser to help visualize the effect of manipulations. Here we explore how we can use vcfR to survey genomic data for interesting features."
+
+#### Creating chromR objects 
+
+"In this example we will begin by locating the example data from the pinfsc50 package. This is a separate package from vcfR that you will need to install. If you haven’t installed it already, you can install it with install.packages('pinfsc50'). For data from your own research activities you may wany to omit the system.file() steps and directly use your filenames in the input steps."
+
+library(vcfR)
+
+```{r}
+# Find the files.
+vcf_file <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
+dna_file <- system.file("extdata", "pinf_sc50.fasta", package = "pinfsc50")
+gff_file <- system.file("extdata", "pinf_sc50.gff", package = "pinfsc50")
+
+# Input the files.
+vcf <- read.vcfR(vcf_file, verbose = FALSE)
+dna <- ape::read.dna(dna_file, format = "fasta")
+gff <- read.table(gff_file, sep="\t", quote="")
+
+# Create a chromR object.
+chrom <- create.chromR(name="Supercontig", vcf=vcf, seq=dna, ann=gff, verbose=TRUE)
+```
+
+#### Processing chromR objects 
+
+
