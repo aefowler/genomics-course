@@ -6,12 +6,14 @@ output: html_document
 ---
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: October 26, 2020 
+Last updated: November 2, 2020 
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
 
 ### R Tutorials and Exercises
+
+Corresponding instructions for all labs by Dr. Blanchard [here](https://jeffreyblanchard.github.io/EvoGeno/)
 
 Lab 1: [Intro to R & Markdown](https://moodle.umass.edu/pluginfile.php/3374622/mod_resource/content/2/EvoGeno_Lab1.html) || [Exercises](Lab1_AEF.html)
 
@@ -33,7 +35,11 @@ Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expre
 
 Lab 8: [Sequence Alignment, Phylogenetic Analysis and Tree Visualization](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab8_phylogenetic.html#ngphylogeny.fr---a-quick-and-easy-working-flow-including-multiple-sequence-alignment-phylogenetic-analysis-and-tree-visualization) || [Exercises](Lab8.html)
 
-Lab 9A: [Programming in R - Regular Expressions](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab9_stringr.html#class-exercises) || [Exercises](Lab9A.html)
+Lab 9: [Programming in R - Regular Expressions](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab9_stringr.html#class-exercises) || [Exercises](Lab9A.html)
+
+Lab 9 extra: [Programming in R - Control Structures and Functions]() || [Exercises](Lab9x.html)
+
+Lab 10: [Population genomics based on high throughput sequencing (HTS)]() || [Exercises](Lab10.html)
 
 ### Python Tutorials and Exercises  
 
