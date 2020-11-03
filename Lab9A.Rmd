@@ -591,9 +591,6 @@ str_extract_all(x, "[a-z]", simplify = TRUE)
 * All plurals.
 
 ### 14.4.3: Grouped matches
-
-
-
 ### 14.4.4: Replacing matches
 ### 14.4.5: Splitting
 
