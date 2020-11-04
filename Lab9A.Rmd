@@ -591,18 +591,132 @@ str_extract_all(x, "[a-z]", simplify = TRUE)
 * All plurals.
 
 ### 14.4.3: Grouped matches
+
+Earlier in this chapter we talked about the use of parentheses for clarifying precedence and for backreferences when matching. You can also use parentheses to extract parts of a complex match. For example, imagine we want to extract nouns from the sentences. As a heuristic, we’ll look for any word that comes after “a” or “the”. Defining a “word” in a regular expression is a little tricky, so here I use a simple approximation: a sequence of at least one character that isn’t a space.
+
+```{r}
+noun <- "(a|the) ([^ ]+)"
+
+has_noun <- sentences %>%
+  str_subset(noun) %>%
+  head(10)
+has_noun %>% 
+  str_extract(noun)
+```
+
+str_extract() gives us the complete match; str_match() gives each individual component. Instead of a character vector, it returns a matrix, with one column for the complete match followed by one column for each group:
+
+```{r}
+has_noun %>% 
+  str_match(noun)
+```
+
+(Unsurprisingly, our heuristic for detecting nouns is poor, and also picks up adjectives like smooth and parked.)
+
+If your data is in a tibble, it’s often easier to use tidyr::extract(). It works like str_match() but requires you to name the matches, which are then placed in new columns:
+
+```{r}
+tibble(sentence = sentences) %>% 
+  tidyr::extract(
+    sentence, c("article", "noun"), "(a|the) ([^ ]+)", 
+    remove = FALSE
+  )
+```
+
+Like str_extract(), if you want all matches for each string, you’ll need str_match_all().
+
+#### 14.4.3.1 Exercises 
+1. Find all words that come after a "number" like "one", "two", "three", etc. Pull out both the number and the word. 
+
+2. Find all contractions. Separate out the pieces before and after the apostrophe. 
+
 ### 14.4.4: Replacing matches
+
+str_replace() and str_replace_all() allow you to replace matches with new strings. The simplest use is to replace a pattern with a fixed string:
+
+```{r}
+x <- c("apple", "pear", "banana")
+str_replace(x, "[aeiou]", "-")
+
+str_replace_all(x, "[aeiou]", "-")
+```
+
+With str_replace_all() you can perform multiple replacements by supplying a named vector:
+
+```{r}
+x <- c("1 house", "2 cars", "3 people")
+str_replace_all(x, c("1" = "one", "2" = "two", "3" = "three"))
+```
+
+Instead of replacing with a fixed string you can use backreferences to insert components of the match. In the following code, I flip the order of the second and third words.
+
+```{r}
+sentences %>% 
+  str_replace("([^ ]+) ([^ ]+) ([^ ]+)", "\\1 \\3 \\2") %>% 
+  head(5)
+```
+
+#### 14.4.4.1 Exercises 
+
+1. Replace all forward slashes in a string with backslashes.
+2. Implement a simple version of str_to_lower() using replace_all().
+3. Switch the first and last letters in words. Which of those strings are still words?
+
 ### 14.4.5: Splitting
+
+Use str_split() to split a string up into pieces. For example, we could split sentences into words:
+
+```{r}
+sentences %>%
+  head(5) %>% 
+  str_split(" ")
+```
+
+Because each component might contain a different number of pieces, this returns a list. If you’re working with a length-1 vector, the easiest thing is to just extract the first element of the list:
+
+```{r}
+"a|b|c|d" %>% 
+  str_split("\\|") %>% 
+  .[[1]]
+```
+
+Otherwise, like the other stringr functions that return a list, you can use simplify = TRUE to return a matrix:
+
+```{r}
+sentences %>%
+  head(5) %>% 
+  str_split(" ", simplify = TRUE)
+```
+
+You can also request a maximum number of pieces:
+
+```{r}
+fields <- c("Name: Hadley", "Country: NZ", "Age: 35")
+fields %>% str_split(": ", n = 2, simplify = TRUE)
+```
+
+Instead of splitting up strings by patterns, you can also split up by character, line, sentence and word boundary()s:
+
+```{r}
+x <- "This is a sentence.  This is another sentence."
+str_view_all(x, boundary("word"))
+
+str_split(x, " ")[[1]]
+
+str_split(x, boundary("word"))[[1]]
+```
+
+#### 14.4.5.1 Exercises 
+
+1. Split up a string like “apples, pears, and bananas” into individual components.
+ 
+2. Why is it better to split up by boundary(“word”) than " "?
+
+3. What does splitting with an empty string ("") do? Experiment, and then read the documentation.
 
 ### 14.7: STRINGI 
 
+stringr is built on top of the stringi package. stringr is useful when you’re learning because it exposes a minimal set of functions, which have been carefully picked to handle the most common string manipulation functions. stringi, on the other hand, is designed to be comprehensive. It contains almost every function you might ever need: stringi has 250 functions to stringr’s 49.
 
-
-
-
-
-
-
-
-
+If you find yourself struggling to do something in stringr, it’s worth taking a look at stringi. The packages work very similarly, so you should be able to translate your stringr knowledge in a natural way. The main difference is the prefix: str_ vs. stri_.
 
