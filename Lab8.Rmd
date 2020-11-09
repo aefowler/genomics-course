@@ -304,8 +304,23 @@ b. Alternatively: use ggtree(tree) + geom_text(aes(label=node), hjust=-.3) to se
 
 9. Optionally, go back to the original ggtree(tree, ...) call and change the layout to "circular".
 
-#### In progress...
+```{r}
+MRCA(tree, ("B"), ("C"))
+MRCA(tree, ("L"), ("J"))
+```
 
+```{r}
+ggtree(tree) +
+  theme_tree2() +
+  geom_tiplab() + 
+  geom_hilight(node=19, fill="blue3") +
+  geom_hilight(node=23, fill="orange2") +
+  geom_taxalink("C", "E", lty=2) + 
+  geom_taxalink("G", "J", lty=2) +
+  geom_cladelabel(node=17, label="Superclade 17", 
+                  color="darkred", offset=.8) + 
+  ggtitle("Exercise 3 Tree")
+```
 
 ### Advanced tree annotation 
 
@@ -402,8 +417,31 @@ my_tree <- read.tree("fastree_result.tre")
 ```
 
 ```{r}
-ggtree(my_tree, layout = 'circular', color = 'blue') + 
-  geom_tippoint(size = 2, color = "blue", pch = 18) + 
-  geom_tiplab(size = 2, color = "blue") + 
-  ggtitle("My CIPRES Tree")
+my_tree$tip.label
+```
+
+
+```{r}
+#Eukaryotes?
+MRCA(my_tree, ("Drosophila_yakuba_nuclear"), ("Trypanosoma_cruzi_nuclear"))
+
+#Archaea? 
+MRCA(my_tree, ("Candidatus_Korarchaeum_cryptofilum_"), ("Nanoarchaeum_equitans"))
+
+#Bacteria? 
+MRCA(my_tree, ("Oryza_mitochondrion"), ("Prochlorococcus_marinus"))
+```
+
+```{r}
+ggtree(my_tree) +
+  xlim(0,2) +
+  geom_tippoint(size = 2, pch = 18) + 
+  geom_tiplab(size = 2.5) + 
+  ggtitle("My Tree of Life (from CIPRES)")+
+  geom_hilight(node=25, fill="seagreen", extend = 0.5) +
+  geom_hilight(node=30, fill="palevioletred", extend = 0.5) +
+  geom_hilight(node=36, fill="royalblue1", extend = 0.5) +
+  geom_cladelabel(node=25, label="Eukaryotes", offset = .5) + 
+  geom_cladelabel(node=30, label="Archaea", offset = .5) + 
+  geom_cladelabel(node=36, label="Bacteria", offset = .5)
 ```
