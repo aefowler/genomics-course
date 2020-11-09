@@ -5,8 +5,9 @@ date: "Fall 2020"
 output: html_document
 ---
 
-Exercises for "Evolutionary Genomics and Bioinformatics" course. <br>
-Last updated: November 4, 2020 
+Exercises for "Evolutionary Genomics and Bioinformatics" course.
+
+Last updated: November 9, 2020 
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
@@ -40,6 +41,8 @@ Lab 9: [Programming in R - Regular Expressions](https://jeffreyblanchard.github.
 Lab 9 extra: [Programming in R - Control Structures and Functions](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab9x_progR_loops.html) || [Exercises](Lab9x.html)
 
 Lab 10: [Population genomics based on high throughput sequencing (HTS)](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab10_SNP.html) || [Exercises](Lab10.html)
+
+Lab 11: [Microbiome Analysis using data2 and phyloseq](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab11_phyloseq.html) || [Exercises](Lab11.html)
 
 ### Python Tutorials and Exercises  
 
