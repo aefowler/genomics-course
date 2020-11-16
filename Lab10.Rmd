@@ -5,26 +5,29 @@ date: "11/2/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-### In progress 
-
-```{r}
+```{r, results = 'hide', message = FALSE}
 library(vcfR)
 library(adegenet)
 library(poppr)
 ```
 
+This tutorial is derived from [Novel tools in R for population genomic analyses](https://grunwaldlab.github.io/Population_Genetics_in_R/intro_vcf.html), [Reading VCF data](https://grunwaldlab.github.io/Population_Genetics_in_R/reading_vcf.html) and [Analysis of genome data](https://grunwaldlab.github.io/Population_Genetics_in_R/analysis_of_genome.html) by BJ Knaus, JF Tabima and NJ Grünwald
+
+### Novel tools in R for population genomic analyses 
+
+We now live in the fast growing era of high throughput sequencing (HTS) that is revolutionizing our ability to understand genetic variation (Grünwald, McDonald, and Milgroom 2016; Luikart et al. 2003). Two factors are contributing to a need for new methods of analyzing data: 1. the data is now often in a genome-wide context where location within a genome is part of the analysis and 2. the number of variants are large.
+
+The R computing language has become a great tool for analyzing population genomic data. A special issue in [Molecular Ecology Resources](https://onlinelibrary.wiley.com/toc/17550998/2017/17/1) provides a nice overview of the arsenal of tools available in R (Paradis et al. 2017). New tools have become available in R for analyzing HTS data including adegenet (Jombart 2008), ape (Paradis, Claude, and Strimmer 2004), vcfR (Knaus and Grünwald 2017), and poppr (Kamvar, Tabima, and Grünwald 2014; Kamvar, Brooks, and Grünwald 2015) among others. Section III of this primer is geared towards analyzing whole genome or reduced representation genomic data for populations using the variant call format (VCF). The next three chapters will focus on introducing the VCF file format, reading SNP data into R from high throughput sequencing projects, performing quality control, and conducting selected analyses using population genomic data.
 
 ### PART I: Reading VCF data
 
-Genetic variation data is typically stored in variant call format (VCF) files (Danecek et al. 2011). This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their contents.
+Genetic variation data is typically stored in **variant call format (VCF)** files (Danecek et al. 2011). This format is the preferred file format obtained from genome sequencing or high throughput genotyping. One advantage of using VCF files is that only variants (e.g., SNPs, indels, etc.) are reported which economizes files size relative to a format that may included invariant sites. Variant callers typically attempt to aggressively call variants with the perspective that a downstream quality control step will remove low quality variants. Note that VCF files come in different flavors and that each variant caller may report a slightly different information. A first step in working with this data is to understand their contents.
 
 #### VCF file structure
 
 A VCF file can be thought of as having three sections: a vcf header, a fix region and a gt region. The VCF meta region is located at the top of the file and contains meta-data describing the body of the file. Each VCF meta line begins with a ‘##’. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the metadata region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. The fix region is required in a VCF file, subsequent columns are optional but are common in our experience. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine, the FORMAT column. The location of these three regions within a file can be represented by this cartoon:
+
+<center> <img src="images/vcf.png" width = "50%"> </center>
 
 The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.
 
@@ -46,7 +49,7 @@ The meta region contains information about the file, its creation, as well as in
 strwrap(vcf@meta[1:7])
 ```
 
-The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.
+The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create .SAM or .BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.
 
 The meta region may include long lines that may not be easy to view. In vcfR we’ve created a function to help press this data.
 
@@ -145,7 +148,7 @@ colnames(vcf@gt)
 #### Introduction 
 Analysis of genome data for populations can be seen as similar to the analyses of other marker systems discussed in previous chapters of this book, except that genome data analyses include larger quantities of data. For example, VCF data (discussed in ‘reading VCF data’) can be read into R using vcfR (Knaus and Grünwald 2017) to create a vcfR object. This object can be converted into a genlight object (Jombart 2008) and then a snpclone object (Kamvar, Tabima, and Grünwald 2014, @kamvar2015novel) if deemed necessary. Analysis on these objects has been covered in previous sections. Genome scale data provides additional analytical options as well. For example, when assumptions about the neutrality of the majority of the genome are appropriate, this can be used as a null hypothesis and used to help identify markers that differentiate from this assumption. Here we’ll provide examples of how genomic data may be analyzed.
 
-For genomics examples we’ll use the pinfsc50 dataset. The pinfsc50 dataset is from a number of published P. infestans genomics projects where the data has been subset here to supercontig_1.50. This dataset is available as a stand alone R package (Knaus and Grünwald 2017) or be download from the course repo By subsetting the data to one supercontig it creates a dataset of a size that can be conveniently used for examples. This dataset illustrates some important strengths and weaknesses of these studies. A strength is the amount of data we have for each individual. Among the weaknesses are that the samples are ‘opportunistic’ in that we have no control over the design of the experiment. Also, because of the large investment in data per sample, there is a relatively small number of samples.
+For genomics examples we’ll use the pinfsc50 dataset. The pinfsc50 dataset is from a number of published Phytophthora infestans (potato late blight fungus) genomics projects where the data has been subset here to supercontig_1.50. This dataset is available as a stand alone R package (Knaus and Grünwald 2017) or be download from the course repo by subsetting the data to one supercontig it creates a dataset of a size that can be conveniently used for examples. This dataset illustrates some important strengths and weaknesses of these studies. A strength is the amount of data we have for each individual. Among the weaknesses are that the samples are ‘opportunistic’ in that we have no control over the design of the experiment. Also, because of the large investment in data per sample, there is a relatively small number of samples.
 
 #### Opening and examining the dataset 
 
@@ -225,7 +228,7 @@ Note, that the variable x has not yet been specified. Lastly, because you can us
 
 ##### Using chromR to locate unusual features in a genome 
 
-Genomic projects frequently incorporate several types of data. For example, the reference sequence may be stored as a FASTA format file, variants (SNPs, indels, etc.) may be stored in a variant call format (VCF) file while annotations may be stored as a GFF or BED format (tablular data). Genome browsers can be used to integrate these different data types. However, genome browsers typically lack a manipulation environment, they simply display existing files. The R environment includes a tremendous amount of statistical support that is both specific to genetics and genomics as well as more general tools (e.g., the linear model and its extensions). The R package vcfR provides a link between VCF data and the R environment and it includes a simple genome browser to help visualize the effect of manipulations. Here we explore how we can use vcfR to survey genomic data for interesting features.
+Genomic projects frequently incorporate several types of data. For example, the *reference sequence* may be stored as a FASTA format file, *variants (SNPs, indels, etc.)* may be stored in a variant call format (VCF) file while *annotations* may be stored as a GFF or BED format (tablular data). Genome browsers can be used to integrate these different data types. However, genome browsers typically lack a manipulation environment, they simply display existing files. The R environment includes a tremendous amount of statistical support that is both specific to genetics and genomics as well as more general tools (e.g., the linear model and its extensions). The R package vcfR provides a link between VCF data and the R environment and it includes a simple genome browser to help visualize the effect of manipulations. Here we explore how we can use vcfR to survey genomic data for interesting features.
 
 #### Creating chromR objects 
 
@@ -246,6 +249,7 @@ gff <- read.table(gff_file, sep="\t", quote="")
 
 # Create a chromR object.
 chrom <- create.chromR(name="Supercontig", vcf=vcf, seq=dna, ann=gff, verbose=TRUE)
+
 ```
 
 Note that a warning message indicates that the names in all of the data sources do not match pefectly. It has been my experience that this is a frequent occurrence in genome projects. Instead of asking the user to create duplicate files that have the same data but standardized names, vcfR allows the user to exercise some judgement. If you see this message and feel the names are correct you can ignore this and proceed. In this case we see that a chromosome is named ‘Supercontig_1.50’ in the VCF data but named ‘Supercontig_1.50 of Phytophthora infestans T30-4’ in the FASTA (sequence) file. Because we know that for this specific project these are synonyms we can safely ignore the warning and proceed.
@@ -308,7 +312,7 @@ While loading entire genomes into memory may not be practical due to resource li
 
 #### Genetic Differentiation
 
-A fundamental question to most population studies is whether populations are diverse and whether this diversity is shared among the populations? To address the question of within population diversity geneticists typically report heterozygosity. This is the probability that two alleles randomly chosen from a population will be different (Nei 1973). Ecologists may know this as Simpson’s Index (Simpson 1949). To address differentiation population geneticists typically utilize FST or one of its analogues. Population differentiation measured by FST was originally proposed by Sewall Wright (Wright 1949). This was later extended to a method based on diversity by Masatoshi Nei (Nei 1973). As researchers applied these metrics to microsatellites, genetic markers with a large number of alleles, it became clear that Nei’s measure would not correctly range from zero to one, so Philip Hedrick proposed a correction (Hedrick 2005). More recently, Lou Jost proposed another alternative (Jost 2008). You can tell a topic is popular when so many variants of it are generated. And there are more variants than mentioned here. A nice discussion as to which measure may be appropriate for your data was posteed to teh Molecular Ecologist blog titled should I use FST, GST or D?.
+A fundamental question to most population studies is whether populations are diverse and whether this diversity is shared among the populations? To address the question of within population diversity geneticists typically report *heterozygosity*. This is *the probability that two alleles randomly chosen from a population will be different (Nei 1973)*. Ecologists may know this as Simpson’s Index (Simpson 1949). To address differentiation population geneticists typically utilize FST or one of its analogues. Population differentiation measured by FST was originally proposed by Sewall Wright (Wright 1949). This was later extended to a method based on diversity by Masatoshi Nei (Nei 1973). As researchers applied these metrics to microsatellites, genetic markers with a large number of alleles, it became clear that Nei’s measure would not correctly range from zero to one, so Philip Hedrick proposed a correction (Hedrick 2005). More recently, Lou Jost proposed another alternative (Jost 2008). You can tell a topic is popular when so many variants of it are generated. And there are more variants than mentioned here. A nice discussion as to which measure may be appropriate for your data was posteed to teh Molecular Ecologist blog titled [should I use FST, GST or D?](http://www.molecularecologist.com/2011/03/should-i-use-fst-gst-or-d-2/).
 
 In vcfR, the function genetic_diff() was implemented to measure population diversity and differentiation. Because VCF data typically do not include population information we’ll have to supply it as a factor. The method ‘nei’ employed here is based on the methods reported by Hedrick (Hedrick 2005). The exception is that the heterozygosities are weighted by the number of alleles observed in each population. This was inspired by hierfstat::pairwise.fst() which uses the number of individuals observed in each population to weight the heterozygosities. By using the number of alleles observed instead of the number of individuals we remove an assumption about how many alleles each individual may contribute. That is, we should be able to accomodate samples of mixed ploidy.
 
@@ -355,9 +359,77 @@ p
 
 1. You actually have everything you need to make a Manhattan plot. Can you figure out how to plot G′ST (y-axis) by genomic position (POS)?
 
+My attempt: 
+```{r}
+ggplot(myDiff, aes(x=POS, y=Gprimest)) +
+  geom_point() +
+  xlab("Location on Chromosome/Supercontig")  +
+  ylab("Heterozygosity (G′ST)") +
+  theme_bw()
+
+```
+
+Jeff's answer: 
+```{r}
+plot(getPOS(vcf), myDiff$Gprimest,  
+     pch = 20, 
+     col = "#1E90FF44", 
+     xlab = "", 
+     ylab = "", 
+     ylim = c(0, 1), 
+     xaxt = "n")
+axis(side = 1, 
+     at = seq(0, 1e5, by = 1e4), 
+     labels = seq(0, 100, by = 10))
+title(xlab='Genomic position (Kbp)')
+title(ylab = expression(italic("G'"["ST"])))
+```
+
 2. This Manhatttan plot shouldlook a bit unusual. Can you think of anything that may be wrong with this analysis?
+
+Small sample size 
+```{r}
+table(pop)
+```
+
 
 3. Can you figure out how to zoom in on a particular region of a chromosome in chromoqc()?
 
-4. Can you use the function queryMETA() to look for other data in your file that may be of interest?
+```{r}
+chromoqc(chrom, dp.alpha = 66, xlim = c(2e05, 4e05))
+```
 
+4. Can you use the function queryMETA() to look for other data in your file that may be of interest?
+```{r}
+queryMETA(vcf)
+```
+
+### References 
+
+Danecek, Petr, Adam Auton, Goncalo Abecasis, Cornelis A Albers, Eric Banks, Mark A DePristo, Robert E Handsaker, et al. 2011. “The Variant Call Format and VCFtools.” Bioinformatics 27 (15): 2156–8. https://doi.org/10.1093/bioinformatics/btr330.
+
+Grünwald, Niklaus J, Bruce A McDonald, and Michael G Milgroom. 2016. “Population Genomics of Fungal and Oomycete Pathogens.” Annual Review of Phytopathology 54: 323–46. https://doi.org/0.1146/annurev-phyto-080614-115913.
+
+Hedrick, Philip W. 2005. “A Standardized Genetic Differentiation Measure.” Evolution 59 (8): 1633–8. http://dx.doi.org/10.1111/j.0014-3820.2005.tb01814.x.
+
+Jombart, Thibaut. 2008. “adegenet: A R Package for the Multivariate Analysis of Genetic Markers.” Bioinformatics 24 (11): 1403–5. https://doi.org/10.1093/bioinformatics/btn129.
+
+Jost, Lou. 2008. “GST And Its Relatives Do Not Measure Differentiation.” Molecular Ecology 17 (18): 4015–26. http://dx.doi.org/10.1111/j.1365-294X.2008.03887.x.
+
+Kamvar, Zhian N, Jonah C Brooks, and Niklaus J Grünwald. 2015. “Novel R tools for analysis of genome-wide population genetic data with emphasis on clonality.” Name: Frontiers in Genetics 6: 208. https://doi.org/10.3389/fgene.2015.00208.
+
+Kamvar, Z N, J F Tabima, and Niklaus J Grünwald. 2014. “Poppr: An R Package for Genetic Analysis of Populations with Clonal, Partially Clonal, and/or Sexual Reproduction.” PeerJ 2: e281. https://doi.org/10.7717/peerj.281.
+
+Knaus, Brian J, and Niklaus J Grünwald. 2017. “Vcfr: A Package to Manipulate and Visualize Variant Call Format Data in R.” Molecular Ecology Resources 17 (1): 44–53. http://dx.doi.org/10.1111/1755-0998.12549.
+
+Luikart, Gordon, Phillip R England, David Tallmon, Steve Jordan, and Pierre Taberlet. 2003. “The Power and Promise of Population Genomics: From Genotyping to Genome Typing.” Nature Reviews Genetics 4 (12): 981–94. https://doi.org/10.1038/nrg1226.
+
+Nei, Masatoshi. 1973. “Analysis of Gene Diversity in Subdivided Populations.” Proceedings of the National Academy of Sciences 70 (12): 3321–3. http://www.pnas.org/content/70/12/3321.abstract.
+
+Paradis, Emmanuel, Julien Claude, and Korbinian Strimmer. 2004. “APE: Analyses of Phylogenetics and Evolution in R Language.” Bioinformatics 20 (2): 289–90. https://doi.org/10.1093/bioinformatics/btg412.
+
+Paradis, Emmanuel, Thierry Gosselin, Niklaus J Grünwald, Thibaut Jombart, Stéphanie Manel, and Hilmar Lapp. 2017. “Towards an Integrated Ecosystem of R Packages for the Analysis of Population Genetic Data.” Molecular Ecology Resources 17 (1): 1–4. https://doi.org/10.1111/1755-0998.12636.
+
+Simpson, Edward H. 1949. “Measurement of Diversity.” Nature 163: 688. http://dx.doi.org/10.1038/163688a0.
+
+Wright, Sewall. 1949. “The Genetical Structure of Populations.” Annals of Eugenics 15 (1): 323–54. https://doi.org/10.1111/j.1469-1809.1949.tb02451.x.
