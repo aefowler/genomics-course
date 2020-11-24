@@ -5,10 +5,6 @@ date: "11/9/2020"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ### Introduction to Microbiome Analysis
 
 [dada2](https://benjjneb.github.io/dada2/index.html) and [phyloseq](https://joey711.github.io/phyloseq/) are two complementary R packages for the analysis of microbial community data developed in [Susan Holmes’ research group](https://statweb.stanford.edu/~susan/) at Stanford. Today we will go through the tutorials associated with these packages.
@@ -17,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 phyloseq is installed through Bioconductor using the BiocManager
 
-```{r}
+```{r, message = FALSE}
 BiocManager::install("phyloseq")
 BiocManager::install("dada2")
 BiocManager::install("DECIPHER")
@@ -28,7 +24,7 @@ BiocManager::install("DECIPHER")
 [Instructions here](https://benjjneb.github.io/dada2/tutorial.html)
 
 #### Getting ready 
-```{r}
+```{r, message = FALSE}
 library(dada2); packageVersion("dada2")
 ```
 
