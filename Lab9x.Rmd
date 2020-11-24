@@ -1,0 +1,230 @@
+---
+title: "Lab 9 extra : Programming in R - Control Structures and Functions"
+author: "Alison Fowler"
+date: "10/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Control Structures 
+
+Commonly used control structures are: 
+
+* if and else: testing a condition and acting on it
+* for: execute a loop a fixed number of times
+* while: execute a loop *while* a condition is true
+
+**Conditional statements with if-else**
+
+```{r, eval = FALSE}
+if(<condition>) {
+        ## do something
+} 
+## Continue with rest of code
+```
+ 
+```{r, eval = FALSE}
+if(<condition>) {
+        ## do something
+} 
+else {
+        ## do something else
+}
+```
+
+
+```{r, eval = FALSE}
+if(<condition1>) {
+        ## do something
+} else if(<condition2>)  {
+        ## do something different
+} else {
+        ## do something different
+}
+```
+
+
+```{r}
+## Generate a uniform random number
+x <- runif(1, 0, 10)  
+
+x
+
+if(x > 3) {
+        y <- 10
+} else {
+        y <- 0
+}
+
+y
+```
+
+**Important Operators**
+
+Comparison operators:
+
+* == (equal)
+* != (not equal)
+* ">" (greater than)
+* ">=" (greater than or equal)
+* < (less than)
+* <= (less than or equal)
+
+Logical operators:
+
+* & (and)
+* | (or)
+* ! (not)
+
+**for Loops**
+
+```{r}
+for(i in 1:5) {
+  print (i)
+  }
+```
+
+```{r}
+x <- c("a", "b", "c", "d")
+
+for(i in 1:4) {
+        ## Print out each element of 'x'
+        print(x[i])  
+}
+```
+
+```{r}
+## Generate a sequence based on length of 'x'
+for(i in seq_along(x)) {   
+        print(x[i])
+}
+```
+
+
+```{r}
+for(letter in x) {
+        print(letter)
+}
+```
+
+```{r}
+for(i in 1:4) print(x[i])
+```
+
+**Nested for Loops**
+
+```{r}
+x <- matrix(1:6, 2, 3)
+for(i in seq_len(nrow(x))) {
+        for(j in seq_len(ncol(x))) {
+                print(x[i, j])
+        }   
+}
+```
+
+**while Loops**
+
+```{r}
+count <- 0
+while(count < 10) {
+        print(count)
+        count <- count + 1
+}
+```
+
+
+```{r}
+z <- 5
+set.seed(1)
+while(z >= 3 && z <= 10) {
+        coin <- rbinom(1, 1, 0.5)
+        
+        if(coin == 1) {  ## random walk
+                z <- z + 1
+        } else {
+                z <- z - 1
+        } 
+}
+print(z)
+```
+
+
+### Functions 
+
+Here's a simple function that takes no arguments and does nothing.
+```{r}
+f <- function() {
+         ## This is an empty function
+}
+
+class(f)
+```
+
+```{r}
+f()
+```
+
+Now let's create a function that actually has a function body
+
+```{r}
+f <- function() {
+  cat("Hello, world!\n")
+}
+
+f()
+```
+
+```{r}
+f <- function(num) {
+        for(i in seq_len(num)) {
+                cat("Hello, world!\n")
+        }
+}
+
+f(3)
+```
+
+```{r}
+f <- function(num) {
+        hello <- "Hello, world!\n"
+        for(i in seq_len(num)) {
+               cat(hello)
+        }
+        chars <- nchar(hello) * num
+        chars
+}
+meaningoflife <- f(3)
+
+print(meaningoflife)
+```
+
+
+```{r, eval = FALSE}
+f()
+```
+
+```{r}
+f <- function(num = 1) {
+        hello <- "Hello, world!\n"
+        for(i in seq_len(num)) {
+                cat(hello)
+        }
+        chars <- nchar(hello) * num
+        chars
+}
+
+f()    ## Use default value for 'num'
+```
+
+```{r}
+f(2)   ## Use user-specified value
+```
+
+```{r}
+f(num = 2)
+```
+
+
