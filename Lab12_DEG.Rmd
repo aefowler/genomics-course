@@ -1,0 +1,35 @@
+---
+title: 'Lab 12: Differentially Expressed Genes Network Analysis'
+author: "Alison Fowler"
+date: "12/2/2020"
+output: html_document
+---
+
+Instructions [here](https://cytoscape.org/cytoscape-tutorials/protocols/differentially-expressed-genes/#/) 
+
+This protocol describes a network analysis workflow in Cytoscape for a set of differentially expressed genes. Points covered:
+
+* Retrieving relevant networks from public databases
+* Network functional enrichment analysis
+* Integration and visualization of experimental data
+* Exporting network visualizations
+
+### Background
+### Network Retrieval
+### Retrieve Networks from STRING
+
+### Example 1: STRING Protein Query Up-regulated Genes
+#### STRING Network Up-regulated genes 
+##### Data Integration 
+##### Visualization 
+##### STRING Enrichment
+#### STRING Protein Query Down-regulated Genes 
+##### Visualization 
+##### STRING Enrichment
+
+### Example 2: STRING Disease Query 
+#### Data Integration 
+#### Visualization 
+#### Other Analysis Options 
+
+### Exploring Networks 
