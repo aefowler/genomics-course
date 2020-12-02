@@ -1,0 +1,106 @@
+---
+title: 'Lab 12: Basic Data Visualization'
+author: "Alison Fowler"
+date: "12/2/2020"
+output: html_document
+---
+
+Intructions [here](https://cytoscape.org/cytoscape-tutorials/protocols/basic-data-visualization/#/)
+
+### Intro 
+
+Cytoscape is an open source software platform for integrating, visualizing, and analyzing measurement data in the context of networks.
+
+This tutorial presents a scenario of how expression and network data can be combined to tell a biological story and includes these concepts:
+
+* Visualizing networks using expression data.
+* Filtering networks based on expression data.
+* Assessing expression data in the context of a biological network.
+
+### Loading Network
+
+To get started, install and launch the latest version of Cytoscape.
+
+We will use NDEx to find a relevant network. In the Network Search interface in the Control Panel, select NDEx from the drop-down, and type in "GAL1 GAL4 GAL80".
+
+In the search results, find the galFiltered network with data. Click the Import network to Cytoscape icon to the left of the network name.
+
+The network will open with the default style, similar to the network on the right:
+
+Mine looks like this (not like in the tutorial): 
+
+<center><img src="images/examplenetwork.PNG" width="50%"><center/>
+
+### Visualizing Expression Data on Networks 
+
+Probably the most common use of expression data in Cytoscape is to set the visual properties of the nodes (color, shape, border) in a network according to expression data. This creates a powerful visualization, portraying functional relation and experimental response at the same time. Here, we will show an example of doing this.
+
+The data used in this example is from yeast, and represents an experiment of perturbations of the genes Gal1, Gal4, and Gal80, which are all yeast transcription factors.
+
+For this tutorial, the experimental data was part of the Cytoscape session file you loaded earlier, and is visible in the Node Table.
+
+You can select nodes in the network by Shift + Click and Drag or by Shift + clicking on multiple nodes.
+Selecting one or more nodes in the network will update the Node Table to show only the corresponding row(s).
+
+We can now use the data to manipulate the visual properties of the network by mapping specific data columns to visual style properties:
+
+* The gal80Rexp expression values will be mapped to node color; nodes with low expression will be colored blue, nodes with high expression will be colored red.
+* Significance for expression values will be mapped to Node Border Width, so nodes with significant changes will appear with a thicker border.
+
+### Set node fill color, default node color, node border width 
+
+<center>
+<img src="images/nodeborder.PNG" width="35%"> 
+<img src="images/redblue.PNG" width="50%">
+<center/>
+
+### Creating a Legend
+
+<center><img src="images/legend.gif" width="35%"><center/>
+
+### Layouts
+
+<center><img src="images/circlenetwork.PNG" width="50%"><center/>
+
+### Select Nodes
+<center><img src="images/filternodes.PNG" width="50%"><center/>
+
+### Expand Selection and Create New Network
+<center><img src="images/newnetwork2.PNG" width="50%"><center/>
+
+### Exploring Nodes
+
+<center><img src="images/explorenode.PNG" width="30%"> ---> <img src="images/nodegene.PNG" width="50%"><center/>
+
+
+Digging into the biology of this network, it turns out that GAL4 is repressed by GAL80. Both nodes (GAL4 and GAL11) show fairly small changes in expression, and neither change is statistically significant: they are pale blue with thin borders. These slight changes in expression suggest that the critical change affecting the red nodes might be somewhere else in the network, and not either of these nodes. GAL4 interacts with GAL80, which shows a significant level of repression: it is medium blue with a thicker border.
+
+Note that while GAL80 shows evidence of significant repression, most nodes interacting with GAL4 show significant levels of induction: they are rendered as red rectangles. GAL11 is a general transcription co-factor with many interactions.
+
+Putting all of this together, we see that the transcriptional activation activity of Gal4 is repressed by Gal80. So, repression of Gal80 increases the transcriptional activation activity of Gal4. Even though the expression of Gal4 itself did not change much, the Gal4 transcripts were much more likely to be active transcription factors when Gal80 was repressed. This explains why there is so much up-regulation in the vicinity of Gal4.
+
+### Summary 
+
+In summary, we have:
+
+* Explored a yeast interactome from a transcription factor knockout experiment
+* Created a visual style using expression value as node color and with border width mapped to significance
+* Selected high expressing genes and their neighbors and created a new network
+
+Finally, we can now export this network as a publication-quality image....
+
+### Saving Results 
+
+* As a session: File → Save, File → Save As...
+* As an image: File → Export → Network to Image...
+* To the web: File → Export → Network to Web Page... (Example)
+* To a public repository: File → Export → Network to NDEx, or File → Export → Collection to NDEx
+* As a graph format file: File → Export → Network to File.
+
+Formats:
+* CX JSON
+* Cytoscape.js JSON
+* GraphML
+* PSI-MI
+* XGMML
+* SIF
