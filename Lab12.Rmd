@@ -7,7 +7,7 @@ output: html_document
 
 Cytoscape Tutorials: 
 
-* [Basic Data Visualizatio](Lab12_datavis.html)
+* [Basic Data Visualization](Lab12_datavis.html)
 * [Differentially Expressed Genes Network Analysis](Lab12_DEG.html)
 
 RCy3 Tutorials: 
