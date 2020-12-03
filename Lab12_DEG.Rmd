@@ -15,21 +15,85 @@ This protocol describes a network analysis workflow in Cytoscape for a set of di
 * Exporting network visualizations
 
 ### Background
+
+Ovarian serous cystadenocarcinoma is a type of epithelial ovarian cancer which accounts for ~90% of all ovarian cancers. The data used in this protocol are from The Cancer Genome Atlas, in which multiple subtypes of serous cystadenocarcinoma were identified and characterized by mRNA expression.
+
+We will focus on the differential gene expression between two subtypes:
+Mesenchymal and Immunoreactive.
+
+For convenience, the data has already been analyzed and pre-filtered, using log fold change value and adjusted p-value.
+
 ### Network Retrieval
+
+Many public databases and multiple Cytoscape apps allow you to retrieve a network or pathway relevant to your data. For this workflow, we will use the STRING app. Some other options include:
+
+* WikiPathways
+* NDEx
+* GeneMANIA
+
 ### Retrieve Networks from STRING
 
+To identify a relevant network, we will use the STRING database in two different ways:
+
+1. Query STRING protein with the list of differentially expressed genes.
+
+2. Query STRING disease for a keyword; ovarian cancer.
+
+The two examples are split into two separate workflows on the following slides.
+
 ### Example 1: STRING Protein Query Up-regulated Genes
+
+<img src="images/ex1network.PNG" width="50%">
+
 #### STRING Network Up-regulated genes 
+
 ##### Data Integration 
+
+<img src="images/IDmapping.PNG" width="30%">
+
 ##### Visualization 
+
+<img src="images/degenesup_y.png">
+
 ##### STRING Enrichment
+
+<img src="images/donutnetwork.PNG">
+
 #### STRING Protein Query Down-regulated Genes 
+
+##### Data Integration 
+
+<img src="images/IDmapping2.PNG" width="30%">
+
 ##### Visualization 
+
+When I set the column to logFC and the color mapping, it doesn't show up on the network. All the nodes are gray. 
+
+<img src="images/nocolor_maybeerror.png" width="50%">
+
 ##### STRING Enrichment
+
+<img src="images/piecharts.png">
 
 ### Example 2: STRING Disease Query 
+
 #### Data Integration 
+
+<img src="images/IDmapping3.png" width="30%">
+
 #### Visualization 
+
+I didn't have the red-blue colors option... 
+
+<img src="images/cancergenes.png" width="50%"><img src="images/ovariancancergenes.png">
+
 #### Other Analysis Options 
 
+* Exploring networks: finding paths, hubs and modules (clusterMaker, MCODE, jActiveModules, NetworkAnalyzer)
+* Extending networks with Transcription Factors, miRNAs, etc using CyTargetLinker
+
 ### Exploring Networks 
+
+* As an image: File → Export → Network to Image...
+* To a public repository: File → Export → Network to NDEx, or File → Export → Collection to NDEx
+* As a Cytoscape JSON file: File → Export → Network to File and select Cytoscape.js JSON as the format.
