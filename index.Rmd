@@ -48,7 +48,7 @@ Lab 11 extra:  [Microbiome Analysis using phyloseq](https://jeffreyblanchard.git
 
 Lab 12: [Network Analysis using Cytoscape and RCy3](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab12_cytoscape.html) || [Exercises](Lab12.html)
 
-Lab 13: [Sprucing up your Rmarkdown and Github Page](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab13_pretty.html) || [Exercise](lab13.html)
+Lab 13: [Sprucing up your Rmarkdown and Github Page](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab13_pretty.html) || [Exercise](lab13/_site/index.html)
 
 ### Python Tutorials and Exercises  
 
