@@ -16,11 +16,11 @@ Last updated: December 4, 2020
 
 Corresponding instructions for all labs by Dr. Blanchard [here](https://jeffreyblanchard.github.io/EvoGeno/)
 
-Lab 1: [Intro to R & Markdown](https://moodle.umass.edu/pluginfile.php/3374622/mod_resource/content/2/EvoGeno_Lab1.html) || [Exercises](Lab1_AEF.html)
+Lab 1: [Intro to R & Markdown](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab1.html) || [Exercises](Lab1_AEF.html)
 
-Lab 2: [Intro to Github & adding references to Markdown](https://moodle.umass.edu/pluginfile.php/3402381/mod_resource/content/4/EvoGeno_Lab2_GitHub.html) || [Exercises](Lab2_AEF.html)
+Lab 2: [Intro to Github & adding references to Markdown](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab2_GitHub.html) || [Exercises](Lab2_AEF.html)
 
-Lab 3: [Data Wrangling in R](https://moodle.umass.edu/pluginfile.php/3417996/mod_resource/content/2/Evo_Geno_Lab3_Data_Wrangling.html) || [Exercises B](Lab3B_complete.html)
+Lab 3: [Data Wrangling in R](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab3_Data_Wrangling.html) || [Exercises B](Lab3B_complete.html)
 
 Lab 4: [Working with COVID data in R - Part 1](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab4_covid.html) || [Exercises](Lab4.html), [Visualization tutorial (4A)](Lab-4A.html)
 
@@ -28,11 +28,13 @@ Lab 5: [Working with COVID data in R - Part 2](https://jeffreyblanchard.github.i
 
 Lab 5 extra: [Interactive Graphs and Animations](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab5x_interactive_graphs.html) | [Exercises](Lab5-Extra.html)
 
-Lab 6: [Data Maps and Interactive Graphs from the COVID-19 reporting data](https://moodle.umass.edu/pluginfile.php/3456359/mod_resource/content/2/EvoGeno_Lab6_maps.html) || [Exercises](Lab6.html)
+Lab 6: [Data Maps and Interactive Graphs from the COVID-19 reporting data](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab6_maps.html) || [Exercises](Lab6.html)
 
-Lab 6 extra: [Shiny Apps](https://moodle.umass.edu/pluginfile.php/3460973/mod_resource/content/6/EvoGenoLab6x_Shiny.html) || Exercises
+Lab 6 extra: [Shiny Apps](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab6x_Shiny.html)
 
-Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expression](https://moodle.umass.edu/pluginfile.php/3477519/mod_resource/content/1/EvoGeno_Lab7_rnaseq.html) || [Exercises](Lab_7.html)
+Lab 7: [RNA-Seq Workflow: gene-level exploratory analysis and differential expression](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab7_rnaseq.html) || [Exercises](Lab_7.html)
+
+Lab 7 extra: [Working on the Command Line](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab7x_cmd.html)
 
 Lab 8: [Sequence Alignment, Phylogenetic Analysis and Tree Visualization](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab8_phylogenetic.html#ngphylogeny.fr---a-quick-and-easy-working-flow-including-multiple-sequence-alignment-phylogenetic-analysis-and-tree-visualization) || [Exercises](Lab8.html)
 
