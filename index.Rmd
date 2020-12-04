@@ -7,7 +7,7 @@ output: html_document
 
 Exercises for "Evolutionary Genomics and Bioinformatics" course.
 
-Last updated: December 3, 2020 
+Last updated: December 4, 2020 
 
 <img src="images/IMG_1285.JPG" width="20.3%">
 <img src="images/IMG_1530.JPG" width="36%"> <img src="images/pasiecnik2020.JPG" width="36%">
@@ -48,7 +48,7 @@ Lab 11 extra:  [Microbiome Analysis using phyloseq](https://jeffreyblanchard.git
 
 Lab 12: [Network Analysis using Cytoscape and RCy3](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab12_cytoscape.html) || [Exercises](Lab12.html)
 
-Lab 13: [Sprucing up your Rmarkdown and Github Page](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab13_pretty.html) || [Exercise](lab13/_site/index.html)
+Lab 13: [Sprucing up your Rmarkdown and Github Page](https://jeffreyblanchard.github.io/EvoGeno/EvoGeno_Lab13_pretty.html) || [Exercise](https://aefowler.github.io/lab13/)
 
 ### Python Tutorials and Exercises  
 
